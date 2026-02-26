@@ -6,9 +6,7 @@
     <title>Rubén Blasco | Creative Visual</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
     <style>
         :root {
             --bg-main: #0a0a0a;
@@ -16,265 +14,58 @@
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
             --accent-color: #00ff88;
-            --border-radius: 16px;
-            --glass: rgba(255, 255, 255, 0.03);
+            --border-radius: 20px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-primary); line-height: 1.7; overflow-x: hidden; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* --- Navegación Pro --- */
+        /* --- Navegación --- */
         nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(15px);
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-
         .nav-logo { font-weight: 700; letter-spacing: 3px; color: var(--accent-color); font-size: 1.1rem; }
         .nav-links a { margin-left: 25px; font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; text-transform: uppercase; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent-color); }
 
-        /* --- Hero Section --- */
+        /* --- Hero --- */
         header {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            padding: 140px 20px 60px;
+            min-height: 60vh; display: flex; align-items: center; padding: 140px 20px 40px;
             background: radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.07), transparent);
         }
-
-        .hero-content { max-width: 1100px; margin: 0 auto; width: 100%; }
-        .hero-text h1 { font-size: clamp(3.5rem, 12vw, 6rem); line-height: 0.9; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -2px; }
-        .hero-text span { color: var(--accent-color); display: block; font-size: 0.25em; letter-spacing: 7px; margin-top: 15px; font-weight: 400; opacity: 0.9; }
+        .hero-text h1 { font-size: clamp(3.5rem, 12vw, 6rem); line-height: 0.9; text-transform: uppercase; letter-spacing: -2px; }
+        .hero-text span { color: var(--accent-color); display: block; font-size: 0.25em; letter-spacing: 7px; margin-top: 15px; font-weight: 400; }
 
         /* --- Sección Bio --- */
         .bio-section { padding: 80px 0; background: var(--bg-secondary); }
-        .bio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
-        .bio-image img { width: 100%; border-radius: var(--border-radius); border: 1px solid rgba(0,255,136,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .bio-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; }
-        .bio-text p { color: var(--text-secondary); margin-bottom: 20px; font-size: 1.1rem; }
+        .bio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .bio-image img { width: 100%; border-radius: var(--border-radius); border: 1px solid rgba(0,255,136,0.2); }
+        .bio-text h2 { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
 
-        /* --- Carrusel de Videos --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 100px 20px; }
+        /* --- CARRUSEL DE VIDEOS GIGANTE --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 100px 20px; }
         .section-title { font-size: 1.2rem; letter-spacing: 5px; margin-bottom: 50px; color: var(--accent-color); text-transform: uppercase; border-left: 3px solid var(--accent-color); padding-left: 20px; }
         
-        /* Ajustes específicos para que los videos se vean más grandes */
-        .swiper {
-            width: 100%;
-            padding-top: 20px;
-            padding-bottom: 50px;
-        }
-
-        .swiper-slide {
-            transition: transform 0.3s;
-            opacity: 0.4; /* Los videos de los lados se ven más oscuros */
-        }
-
-        .swiper-slide-active {
-            opacity: 1; /* El video central se ve brillante */
-            transform: scale(1.05); /* El video central es más grande */
-        }
+        .swiper { width: 100%; padding: 60px 0; }
+        .swiper-slide { transition: all 0.5s ease; opacity: 0.3; transform: scale(0.85); }
+        .swiper-slide-active { opacity: 1; transform: scale(1.1); z-index: 10; }
 
         .video-card { 
-            position: relative; 
-            border-radius: var(--border-radius); 
-            overflow: hidden; 
-            aspect-ratio: 16/9; 
-            cursor: pointer; 
-            background: #000; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            transition: 0.4s; 
-            display: block;
+            position: relative; border-radius: var(--border-radius); overflow: hidden; 
+            aspect-ratio: 16/9; background: #000; border: 1px solid rgba(255,255,255,0.1); 
+            display: block; width: 100%; cursor: pointer;
         }
-
-        .video-card:hover { border-color: var(--accent-color); box-shadow: 0 15px 30px rgba(0,255,136,0.25); }
-        .video-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
-        .video-card:hover img { opacity: 0.9; }
-        .play-overlay { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--accent-color); font-size: 3.5rem; transition: 0.3s; }
-        .video-card:hover .play-overlay { transform: scale(1.1); color: #fff; }
-
-        /* Botones del carrusel personalizados */
-        .swiper-button-next, .swiper-button-prev {
-            color: var(--accent-color) !important;
-        }
-
-        /* --- Galería Fotografía --- */
-        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .photo-item { border-radius: 8px; overflow: hidden; height: 300px; }
-        .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.6s; }
-        .photo-item:hover img { filter: grayscale(0%); transform: scale(1.08); }
-        .tall { grid-row: span 2; height: 615px; }
-
-        /* --- Diseño Gráfico --- */
-        .design-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .design-card { background: var(--glass); border-radius: var(--border-radius); padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .design-card img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
-        .design-card h3 { font-size: 1.1rem; margin-bottom: 10px; letter-spacing: 1px; }
-
-        /* --- Footer --- */
-        footer { padding: 80px 20px; text-align: center; border-top: 1px solid #222; }
-        .social-icons a { font-size: 1.8rem; margin: 0 20px; color: var(--text-secondary); transition: 0.3s; }
-        .social-icons a:hover { color: var(--accent-color); transform: translateY(-5px); }
-
-        @media (max-width: 850px) {
-            .bio-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .photo-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-logo">RUBÉN BLASCO</div>
-        <div class="nav-links">
-            <a href="#bio">Quién soy</a>
-            <a href="#video">Motion</a>
-            <a href="#foto">Foto</a>
-            <a href="#diseno">Diseño</a>
-        </div>
-    </nav>
-
-    <header>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>RUBÉN <br>BLASCO<span>Creative Visual.</span></h1>
-            </div>
-        </div>
-    </header>
-
-    <section class="bio-section" id="bio">
-        <div class="container">
-            <div class="bio-grid">
-                <div class="bio-image">
-                    <img src="rubenblasco.jpg" alt="Rubén Blasco">
-                </div>
-                <div class="bio-text">
-                    <h2>¡Saludos!</h2>
-                    <p>Mi nombre es Rubén Blasco. Permíteme invitarte a explorar mi pasión y dedicación en el mundo del diseño y la creación audiovisual.</p>
-                    <p>Desde mi infancia, he sentido una conexión profunda con el mundo de la tecnología y la creatividad visual. Mi formación me ha brindado una perspectiva única y versátil para abordar cada proyecto con una visión fresca.</p>
-                    <p>Este sitio es mi lienzo virtual, un lugar donde comparto mi trabajo, reflexiones e inspiraciones contigo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main class="container" id="video">
-        <h2 class="section-title">Work In Motion</h2>
+        .video-card img, .video-card video { width: 100%; height: 100%; object-fit: cover; }
+        .play-overlay { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--accent-color); font-size: 4rem; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
         
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=-98zmOAJI8c" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/-98zmOAJI8c/maxresdefault.jpg">
-                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                    </a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=-FsNURbeVgU" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/-FsNURbeVgU/maxresdefault.jpg">
-                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                    </a>
-                </div>
-                <div class="swiper-slide">
-                    <a href="https://www.youtube.com/watch?v=wFquuwbnBUk" target="_blank" class="video-card">
-                        <img src="https://img.youtube.com/vi/wFquuwbnBUk/maxresdefault.jpg">
-                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                    </a>
-                </div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </main>
+        .swiper-button-next, .swiper-button-prev { color: var(--accent-color) !important; top: 50% !important; }
 
-    <section class="container" id="foto">
-        <h2 class="section-title">Fotografía</h2>
-        <div class="photo-grid">
-            <div class="photo-item tall"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=400" alt="Boda"></div>
-            <div class="photo-item"><img src="https://images.unsplash.com/photo-1492691523567-6170f0295dbd?q=80&w=400" alt="Retrato"></div>
-            <div class="photo-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=400" alt="Evento"></div>
-            <div class="photo-item tall"><img src="https://images.unsplash.com/photo-1520850838646-5b1f1af731a2?q=80&w=400" alt="Pareja"></div>
-            <div class="photo-item"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=400" alt="Naturaleza"></div>
-            <div class="photo-item"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=400" alt="Paisaje"></div>
-        </div>
-    </section>
-
-    <section class="container" id="diseno">
-        <h2 class="section-title">Diseño Gráfico</h2>
-        <div class="design-grid">
-            <div class="design-card">
-                <img src="https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?q=80&w=500" alt="Selected Bilbao">
-                <h3>CARTEL SELECTED BILBAO 2021</h3>
-                <p style="font-size: 0.8rem; color: var(--text-secondary);">Diseño Editorial & Cartelería</p>
-            </div>
-            <div class="design-card">
-                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=500" alt="EASD Castellon">
-                <h3>JORNADAS DISEÑO EASD CASTELLÓN</h3>
-                <p style="font-size: 0.8rem; color: var(--text-secondary);">Identidad Visual & Color</p>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-vimeo-v"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="mailto:tuemail@ejemplo.com"><i class="fas fa-envelope"></i></a>
-        </div>
-        <p style="opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">&copy; 2026 RUBÉN BLASCO. TODOS LOS DERECHOS RESERVADOS.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1, // Por defecto 1 en móvil
-            spaceBetween: 30,
-            centeredSlides: true, // El video activo siempre al centro
-            loop: true, // Carrusel infinito
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            breakpoints: {
-                // Cuando la pantalla mide más de 768px (PC)
-                768: {
-                    slidesPerView: 1.5, // Se ve el central grande y trozos de los otros
-                },
-                1024: {
-                    slidesPerView: 2, // Se ven más grandes
-                }
-            }
-        });
-    </script>
-</body>
-</html>
-    </footer>
-
-</body>
-
-</html>
-
-
-
+        /* --- Galería --- */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .photo-item { border-radius: 12px; overflow: hidden; height: 350px; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.5s; }
+        .photo-item:hover img { filter: grayscale(0%); transform: scale(1.05);
