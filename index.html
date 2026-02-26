@@ -6,6 +6,9 @@
     <title>Rubén Blasco | Creative Visual</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         :root {
             --bg-main: #0a0a0a;
@@ -59,35 +62,65 @@
         .hero-text h1 { font-size: clamp(3.5rem, 12vw, 6rem); line-height: 0.9; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -2px; }
         .hero-text span { color: var(--accent-color); display: block; font-size: 0.25em; letter-spacing: 7px; margin-top: 15px; font-weight: 400; opacity: 0.9; }
 
-        /* --- Sección Bio (Fusionada de tu WordPress) --- */
+        /* --- Sección Bio --- */
         .bio-section { padding: 80px 0; background: var(--bg-secondary); }
         .bio-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; }
         .bio-image img { width: 100%; border-radius: var(--border-radius); border: 1px solid rgba(0,255,136,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .bio-text h2 { font-size: 3rem; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; }
         .bio-text p { color: var(--text-secondary); margin-bottom: 20px; font-size: 1.1rem; }
 
-        /* --- Proyectos Audiovisuales (Sin Error 153) --- */
+        /* --- Carrusel de Videos --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 100px 20px; }
         .section-title { font-size: 1.2rem; letter-spacing: 5px; margin-bottom: 50px; color: var(--accent-color); text-transform: uppercase; border-left: 3px solid var(--accent-color); padding-left: 20px; }
         
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .video-card { 
-            position: relative; border-radius: var(--border-radius); overflow: hidden; aspect-ratio: 16/9; 
-            cursor: pointer; background: #000; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; text-decoration: none; display: block;
+        /* Ajustes específicos para que los videos se vean más grandes */
+        .swiper {
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 50px;
         }
-        .video-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 15px 30px rgba(0,255,136,0.15); }
-        .video-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .video-card:hover img { opacity: 0.8; transform: scale(1.05); }
-        .play-overlay { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--accent-color); font-size: 3.5rem; }
 
-        /* --- Galería Fotografía (Masonry adaptado) --- */
+        .swiper-slide {
+            transition: transform 0.3s;
+            opacity: 0.4; /* Los videos de los lados se ven más oscuros */
+        }
+
+        .swiper-slide-active {
+            opacity: 1; /* El video central se ve brillante */
+            transform: scale(1.05); /* El video central es más grande */
+        }
+
+        .video-card { 
+            position: relative; 
+            border-radius: var(--border-radius); 
+            overflow: hidden; 
+            aspect-ratio: 16/9; 
+            cursor: pointer; 
+            background: #000; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            transition: 0.4s; 
+            display: block;
+        }
+
+        .video-card:hover { border-color: var(--accent-color); box-shadow: 0 15px 30px rgba(0,255,136,0.25); }
+        .video-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .video-card:hover img { opacity: 0.9; }
+        .play-overlay { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; color: var(--accent-color); font-size: 3.5rem; transition: 0.3s; }
+        .video-card:hover .play-overlay { transform: scale(1.1); color: #fff; }
+
+        /* Botones del carrusel personalizados */
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent-color) !important;
+        }
+
+        /* --- Galería Fotografía --- */
         .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
         .photo-item { border-radius: 8px; overflow: hidden; height: 300px; }
         .photo-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.6s; }
         .photo-item:hover img { filter: grayscale(0%); transform: scale(1.08); }
         .tall { grid-row: span 2; height: 615px; }
 
-        /* --- Diseño Gráfico (Cards de Portafolio) --- */
+        /* --- Diseño Gráfico --- */
         .design-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
         .design-card { background: var(--glass); border-radius: var(--border-radius); padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
         .design-card img { width: 100%; border-radius: 8px; margin-bottom: 20px; }
@@ -143,19 +176,31 @@
 
     <main class="container" id="video">
         <h2 class="section-title">Work In Motion</h2>
-        <div class="video-grid">
-            <a href="https://www.youtube.com/watch?v=-98zmOAJI8c" target="_blank" class="video-card">
-                <img src="https://img.youtube.com/vi/-98zmOAJI8c/maxresdefault.jpg">
-                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=-FsNURbeVgU" target="_blank" class="video-card">
-                <img src="https://img.youtube.com/vi/-FsNURbeVgU/maxresdefault.jpg">
-                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=wFquuwbnBUk" target="_blank" class="video-card">
-                <img src="https://img.youtube.com/vi/wFquuwbnBUk/maxresdefault.jpg">
-                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-            </a>
+        
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="https://www.youtube.com/watch?v=-98zmOAJI8c" target="_blank" class="video-card">
+                        <img src="https://img.youtube.com/vi/-98zmOAJI8c/maxresdefault.jpg">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="https://www.youtube.com/watch?v=-FsNURbeVgU" target="_blank" class="video-card">
+                        <img src="https://img.youtube.com/vi/-FsNURbeVgU/maxresdefault.jpg">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="https://www.youtube.com/watch?v=wFquuwbnBUk" target="_blank" class="video-card">
+                        <img src="https://img.youtube.com/vi/wFquuwbnBUk/maxresdefault.jpg">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                    </a>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
     </main>
 
@@ -197,8 +242,39 @@
         <p style="opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">&copy; 2026 RUBÉN BLASCO. TODOS LOS DERECHOS RESERVADOS.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Por defecto 1 en móvil
+            spaceBetween: 30,
+            centeredSlides: true, // El video activo siempre al centro
+            loop: true, // Carrusel infinito
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                // Cuando la pantalla mide más de 768px (PC)
+                768: {
+                    slidesPerView: 1.5, // Se ve el central grande y trozos de los otros
+                },
+                1024: {
+                    slidesPerView: 2, // Se ven más grandes
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    </footer>
+
 </body>
 
 </html>
+
 
 
